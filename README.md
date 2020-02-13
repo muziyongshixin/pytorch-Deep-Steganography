@@ -1,10 +1,13 @@
 # pytorch-Deep-Image-Steganography
 
+
+
 <img src = 'result/title.png'>
 
-
 ## Introduction
-This is a pytorch Implementation of image steganography using deep convolutional neural networks ,which is similar to the paper: "[Hiding Images in Plain Sight: Deep Steganography](https://papers.nips.cc/paper/6802-hiding-images-in-plain-sight-deep-steganography) ".But our result is signiﬁcantly outperforms the [unofficial implementation by harveyslash](https://github.com/harveyslash/Deep-Steganography) 
+This is a pytorch Implementation of image steganography using deep convolutional neural networks ,This repo contains the core code of the Image Model of the ICMR2019 paper:
+
+High-Capacity Convolutional Video Steganography with Temporal Residual Modeling (ICMR2019, oral)
 
 [Steganography](https://en.wikipedia.org/wiki/Steganography) is the science of Hiding a message in another message. In this case, a Picture is hidden inside another picture using Deep convolutional neural networks.
 
@@ -116,3 +119,17 @@ validation|4.16 |4.40 |
 
 ## Acknowledgement
 Thanks for the help of [@arnoweng](https://github.com/arnoweng) during this project. 
+
+
+## Citation
+If this code is helpful for you, please cite our paper:
+```
+@inproceedings{weng2019high,
+  title={High-Capacity Convolutional Video Steganography with Temporal Residual Modeling},
+  author={Weng, Xinyu and Li, Yongzhi and Chi, Lu and Mu, Yadong},
+  booktitle={Proceedings of the 2019 on International Conference on Multimedia Retrieval},
+  pages={87--95},
+  year={2019}
+}
+```
+
