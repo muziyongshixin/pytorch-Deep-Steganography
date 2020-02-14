@@ -7,12 +7,13 @@
 ## Introduction
 This is a pytorch Implementation of image steganography using deep convolutional neural networks ,This repo contains the core code of the Image Model of the ICMR2019 paper:
 
-High-Capacity Convolutional Video Steganography with Temporal Residual Modeling (ICMR2019, oral)
+[High-Capacity Convolutional Video Steganography with Temporal Residual Modeling (ICMR2019, oral)](https://dl.acm.org/doi/abs/10.1145/3323873.3325011)
+
+This repo mainly contains the code of Reference-frame-model, while the Residual-frame-model has the same structure, so you can use the code to achieve the similar result mentioned in the paper. [Here](https://drive.google.com/drive/folders/18_KM0txeoFhsBbj-NU6d4ttviyNj4NGa?usp=sharing) are some video demo.
 
 [Steganography](https://en.wikipedia.org/wiki/Steganography) is the science of Hiding a message in another message. In this case, a Picture is hidden inside another picture using Deep convolutional neural networks.
 
-More detail information can be found in my [Blog](http://ssss)
-
+ 
 ## Dependencies & Installation & Usage
 You need to clone or download this repository first, Then the dependencies can be installed by using 
 ```bash
