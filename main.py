@@ -469,13 +469,13 @@ def test(test_loader, epoch, Hnet, Rnet, criterion):
 
         container_img = Hnet(concat_imgv)  # concat_img as the input of HidingNet and get the container_img
         errH = criterion(container_img, cover_imgv)  # Hiding net reconstructed error
-        Hlosses.update(errH.data[0], this_batch_size)  # record the H loss value
+        Hlosses.update(errH.data, this_batch_size)  # record the H loss value
 
         rev_secret_img = Rnet(
             container_img)  # containerImg is the input of the Rnet and get the output "rev_secret_img"
         secret_imgv = Variable(secret_img, volatile=True)  # secret_imgv is the label of Rnet
         errR = criterion(rev_secret_img, secret_imgv)  # Reveal net reconstructed error
-        Rlosses.update(errR.data[0], this_batch_size)  # record the R loss value
+        Rlosses.update(errR.data, this_batch_size)  # record the R loss value
         save_result_pic(this_batch_size, cover_img, container_img.data, secret_img, rev_secret_img.data, epoch, i,
                         opt.testPics)
 
