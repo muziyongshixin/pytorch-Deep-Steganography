@@ -1,4 +1,3 @@
 torch
 tensorboardX
 argparse
-pytest-shutil
