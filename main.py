@@ -22,6 +22,7 @@ import torch.nn.parallel
 import torch.optim as optim
 import torch.utils.data
 import torchvision.utils as vutils
+from torchvision.utils import save_image
 from tensorboardX import SummaryWriter
 from torch.autograd import Variable
 from torch.optim.lr_scheduler import ReduceLROnPlateau
@@ -468,6 +469,8 @@ def test(test_loader, epoch, Hnet, Rnet, criterion):
         cover_imgv = Variable(cover_img, volatile=True)  # cover_imgv is the label of Hiding net
 
         container_img = Hnet(concat_imgv)  # concat_img as the input of HidingNet and get the container_img
+        for index, img in enumerate(container_img):
+          save_image(img, '%d.png' % index);
         errH = criterion(container_img, cover_imgv)  # Hiding net reconstructed error
         Hlosses.update(errH.data, this_batch_size)  # record the H loss value
 
@@ -476,8 +479,8 @@ def test(test_loader, epoch, Hnet, Rnet, criterion):
         secret_imgv = Variable(secret_img, volatile=True)  # secret_imgv is the label of Rnet
         errR = criterion(rev_secret_img, secret_imgv)  # Reveal net reconstructed error
         Rlosses.update(errR.data, this_batch_size)  # record the R loss value
-        save_result_pic(this_batch_size, cover_img, container_img.data, secret_img, rev_secret_img.data, epoch, i,
-                        opt.testPics)
+        #save_result_pic(this_batch_size, cover_img, container_img.data, secret_img, rev_secret_img.data, epoch, i,
+        #                opt.testPics)
 
     val_hloss = Hlosses.avg
     val_rloss = Rlosses.avg
