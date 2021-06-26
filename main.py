@@ -77,6 +77,8 @@ parser.add_argument('--beta', type=float, default=0.75,
 parser.add_argument('--remark', default='', help='comment')
 parser.add_argument('--test', default='', help='test mode, you need give the test pics dirs in this param')
 
+parser.add_argument('--group', default='', help='mtosity group')
+
 parser.add_argument('--hostname', default=socket.gethostname(), help='the  host name of the running server')
 parser.add_argument('--debug', type=bool, default=False, help='debug mode do not create folders')
 parser.add_argument('--logFrequency', type=int, default=10, help='the frequency of print the log on the console')
@@ -275,7 +277,7 @@ def main():
     else:
         test_loader = DataLoader(test_dataset, batch_size=opt.batchSize,
                                  shuffle=False, num_workers=int(opt.workers))
-        test(test_loader, 0, Hnet=Hnet, Rnet=Rnet, criterion=criterion)
+        test(test_loader, 0, Hnet=Hnet, Rnet=Rnet, criterion=criterion, group=otp.group)
         print("##################   test is completed, the result pic is saved in the ./training/yourcompuer+time/testPics/   ######################")
 
 
@@ -438,7 +440,7 @@ def validation(val_loader, epoch, Hnet, Rnet, criterion):
     return val_hloss, val_rloss, val_sumloss
 
 
-def test(test_loader, epoch, Hnet, Rnet, criterion):
+def test(test_loader, epoch, Hnet, Rnet, criterion, group=0):
     print(
         "#################################################### test begin ########################################################")
     start_time = time.time()
@@ -446,6 +448,9 @@ def test(test_loader, epoch, Hnet, Rnet, criterion):
     Rnet.eval()
     Hlosses = AverageMeter()  # to record the Hloss in one epoch
     Rlosses = AverageMeter()  # to record the Rloss in one epoch
+
+    os.mkdir('frames')
+
     for i, data in enumerate(test_loader, 0):
         Hnet.zero_grad()
         Rnet.zero_grad()
@@ -470,7 +475,7 @@ def test(test_loader, epoch, Hnet, Rnet, criterion):
 
         container_img = Hnet(concat_imgv)  # concat_img as the input of HidingNet and get the container_img
         for index, img in enumerate(container_img):
-          save_image(img, '%d.png' % index);
+          save_image(img, '/content/frames/%d.png' % (index + (16*group)));
         errH = criterion(container_img, cover_imgv)  # Hiding net reconstructed error
         Hlosses.update(errH.data, this_batch_size)  # record the H loss value
 
