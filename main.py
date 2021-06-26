@@ -77,7 +77,7 @@ parser.add_argument('--beta', type=float, default=0.75,
 parser.add_argument('--remark', default='', help='comment')
 parser.add_argument('--test', default='', help='test mode, you need give the test pics dirs in this param')
 
-parser.add_argument('--group', default='', help='mtosity group')
+parser.add_argument('--group', default=0, type=int, help='mtosity group')
 
 parser.add_argument('--hostname', default=socket.gethostname(), help='the  host name of the running server')
 parser.add_argument('--debug', type=bool, default=False, help='debug mode do not create folders')
@@ -277,7 +277,7 @@ def main():
     else:
         test_loader = DataLoader(test_dataset, batch_size=opt.batchSize,
                                  shuffle=False, num_workers=int(opt.workers))
-        test(test_loader, 0, Hnet=Hnet, Rnet=Rnet, criterion=criterion, group=otp.group)
+        test(test_loader, 0, Hnet=Hnet, Rnet=Rnet, criterion=criterion, group=opt.group)
         print("##################   test is completed, the result pic is saved in the ./training/yourcompuer+time/testPics/   ######################")
 
 
@@ -449,7 +449,8 @@ def test(test_loader, epoch, Hnet, Rnet, criterion, group=0):
     Hlosses = AverageMeter()  # to record the Hloss in one epoch
     Rlosses = AverageMeter()  # to record the Rloss in one epoch
 
-    os.mkdir('frames')
+    if not os.path.isdir('frames'):
+      os.mkdir('frames')
 
     for i, data in enumerate(test_loader, 0):
         Hnet.zero_grad()
